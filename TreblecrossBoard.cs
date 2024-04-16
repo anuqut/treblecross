@@ -7,7 +7,8 @@ public class TreblecrossBoard:IGameBoard
     private HashSet<int> emptyPositions = new HashSet<int>();
 
     private Stack<int> steps = new Stack<int>();
-
+    private Stack<int> redo = new Stack<int>();
+    private Stack<X> redoX = new Stack<X>();
     public TreblecrossBoard(X[] boardState)
     {
         this.boardState = boardState;
@@ -74,10 +75,31 @@ public class TreblecrossBoard:IGameBoard
         steps.Push(position);
     }
 
-    public void Undo(){
-        int position = steps.Pop();
-        this.boardState[position] = null; 
-        this.emptyPositions.Add(position);
-        Display();
+    public bool Undo(){
+        if(steps.Count > 0){
+            int position = steps.Pop();
+            X? popedPiece = this.boardState[position];
+            if(popedPiece != null){
+                this.redo.Push(position);
+                this.redoX.Push(popedPiece);
+            }
+            this.boardState[position] = null; 
+            this.emptyPositions.Add(position);
+            Display();
+            return true;
+        }
+        return false;
+    }
+
+    public bool Redo(){
+        if(redo.Count > 0){
+            int position = redo.Pop();
+            X popedPiece = this.redoX.Pop();
+            this.boardState[position] = popedPiece; 
+            this.emptyPositions.Remove(position);
+            Display();
+            return true;
+        }
+        return false;
     }
 }

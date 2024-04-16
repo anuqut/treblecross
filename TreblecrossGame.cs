@@ -62,11 +62,17 @@ public class TreblecrossGame:Game
                 }
 
                 if (input == "U" || input == "undo") {
-                    treblecrossBoard.Undo();
-                    SwapTurns();
+                    if (treblecrossBoard.Undo()) {SwapTurns();}
                     if (currentPlayer.IsComputer()){
-                        treblecrossBoard.Undo();
-                        SwapTurns();
+                        if (treblecrossBoard.Undo()) {SwapTurns();}
+                    }
+                    continue;
+                }
+
+                if (input == "Re" || input == "redo") {
+                    if(treblecrossBoard.Redo()) {SwapTurns();}
+                    if (currentPlayer.IsComputer()){
+                       if(treblecrossBoard.Redo()) {SwapTurns();}
                     }
                     continue;
                 }

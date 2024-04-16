@@ -35,8 +35,8 @@ internal class Messages {
     }
 
     internal void ValidInput(){
-        var validInput = @"Enter a valid position between 1 to 11 to move or 
-enter a valid choice(Q:quit, S:save, I:instructions, U:undo, R:reset): ";
+        var validInput = @"Enter a valid position between 1 to 11 to move or enter a valid
+choice(Q:quit, S:save, I:instructions, U:undo, R:reset, Re:redo): ";
         Console.WriteLine(validInput);
     }
 
